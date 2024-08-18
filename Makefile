@@ -2,7 +2,7 @@ SRCS		=	client.c server.c
 
 OBJS		=	${SRCS:.c=.o}
 
-NAME		=	minitalk
+NAME1		=	
 
 LIBFT_DIR	=	./libft
 
