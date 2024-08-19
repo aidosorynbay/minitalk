@@ -6,7 +6,59 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:03:17 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/08/18 18:03:18 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/08/19 17:34:18 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minitalk.h"
+
+int	g_client_pid;
+
+int	g_message_received;
+
+void	send_action(int pid, char *str)
+{
+	int	c;
+	int	count;
+	int	len;
+	int	i;
+
+	len = ft_strlen(str);
+	len++;
+	i = 0;
+	while (i < len)
+	{
+		count = 7;
+		c = *str;
+		while (count >= 0)
+		{
+			if (((c >> count) & 1) == 1)
+				kill(pid, SIGUSR1);
+			else
+				kill(pid, SIGUSR2);
+			count--;
+			usleep(1000);
+		}
+		str++;
+		i++;
+	}
+}
+
+int	main(int argc, char **argv)
+{
+	g_client_pid = getpid();
+	ft_printf("Client PID: %d\n", g_client_pid);
+	if (argc != 3)
+	{
+		write(2, "Invalid input\n", 15);
+		return (0);
+	}
+	send_action(ft_atoi(argv[1]), argv[2]);
+	while (1)
+	{
+		pause();
+	}
+	if (g_message_received == 1)
+		ft_printf("The server recieved the message.\n");
+	return (0);
+}

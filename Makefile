@@ -1,35 +1,40 @@
-SRCS		=	client.c server.c
+SRCS_CLIENT	=	client.c
 
-OBJS		=	${SRCS:.c=.o}
+SRCS_SERVER	=	server.c
 
-NAME1		=	
+OBJS_CLIENT	=	${SRCS_CLIENT:.c=.o}
+
+OBJS_SERVER	=	${SRCS_SERVER:.c=.o}
+
+SERVER		=	server
+
+CLIENT		=	client
 
 LIBFT_DIR	=	./libft
 
 LIBFT		=	${LIBFT_DIR}/libft.a
 
-CC			=	cc
+CCFLAGS		=	cc -Wall -Werror -Wextra -g3
 
-CFLAGS		=	-Wall -Werror -Wextra -g3
-
-all			:	${NAME}
+all			:	${SERVER} ${CLIENT}
 
 %.o			:	%.c
-			${CC} ${CFLAGS} -c $< -o $@
+			${CCFLAGS} -c $< -o $@
 
 ${LIBFT}	:
 			make -C ${LIBFT_DIR}
 
-${NAME}		:	${LIBFT} ${OBJS}
-			${CC} ${CFLAGS} -I ${LIBFT_DIR} ${OBJS} ${LIBFT} -o ${NAME}
+${SERVER} ${CLIENT}: ${OBJS_SERVER} ${OBJS_CLIENT} ${LIBFT}
+			${CCFLAGS} ${OBJS_SERVER} libft/libft.a -o ${SERVER}
+			${CCFLAGS} ${OBJS_CLIENT} libft/libft.a -o ${CLIENT}
 
 clean		:
-			rm -f &{OBJS}
+			rm -f ${OBJS_SERVER} ${OBJS_CLIENT}
 			make -C ${LIBFT_DIR} clean
 
 fclean		:	clean
-			rm -f ${NAME}
-			make -C {LIBFT_DIR} fclean
+			$(MAKE) fclean -C ./libft
+			rm -rf $(SERVER) $(CLIENT)
 
 re			:	fclean all
 
