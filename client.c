@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:03:17 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/08/20 13:34:38 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:37:04 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	send_action(int pid, char *str)
 int	main(int argc, char **argv)
 {
 	int	pid;
-	
+
 	pid = getpid();
 	ft_printf("Client PID: %d\n", pid);
 	if (argc != 3)
