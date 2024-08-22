@@ -6,7 +6,7 @@
 /*   By: aorynbay <@student.42abudhabi.ae>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:03:17 by aorynbay          #+#    #+#             */
-/*   Updated: 2024/08/21 13:17:28 by aorynbay         ###   ########.fr       */
+/*   Updated: 2024/08/22 10:41:25 by aorynbay         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	send_action(int pid, char *str)
 			else
 				kill(pid, SIGUSR2);
 			count--;
-			usleep(1000);
+			usleep(100);
 		}
 		str++;
 		i++;

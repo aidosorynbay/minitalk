@@ -44,7 +44,7 @@ void	send_action(int pid, char *str)
 			else
 				kill(pid, SIGUSR2);
 			count--;
-			usleep(1000);
+			usleep(100);
 		}
 		str++;
 		i++;
@@ -54,14 +54,12 @@ void	send_action(int pid, char *str)
 int	main(int argc, char **argv)
 {
 	if (argc != 3)
-	{
-		write(2, "Invalid input\n", 15);
-		return (0);
-	}
+		return (write(2, "Invalid input\n", 15), 0);
 	signal(SIGUSR1, acknow_handler);
 	send_action(ft_atoi(argv[1]), argv[2]);
 	if (g_exit_sign == 1)
 		return (0);
 	else
 		pause();
+	return (0);
 }
